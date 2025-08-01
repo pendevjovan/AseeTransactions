@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: jovan-db
+    restart: always
+    environment:
+      POSTGRES_DB: jovan
+      POSTGRES_USER: jovan
+      POSTGRES_PASSWORD: jovan
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U jovan" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: jovan-app
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py loaddata transactions/fixtures/initial_tariffs.json &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DEBUG=1
+      - DB_NAME=jovan
+      - DB_USER=jovan
+      - DB_PASSWORD=jovan
+      - DB_HOST=db
+      - DB_PORT=5432
+
+volumes:
+  pgdata:

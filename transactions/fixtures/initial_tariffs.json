@@ -1,0 +1,59 @@
+[
+  {
+    "model": "transactions.tariffrule",
+    "pk": 1,
+    "fields": {
+      "name": "Сценарио 1 (до 100€)",
+      "transaction_type": "POS",
+      "min_amount": "0.00",
+      "max_amount": "100.00",
+      "fixed_fee": "0.20",
+      "percentage_fee": "0.00",
+      "is_active": true
+    }
+  },
+  {
+    "model": "transactions.tariffrule",
+    "pk": 2,
+    "fields": {
+      "name": "Сценарио 1 (над 100€)",
+      "transaction_type": "POS",
+      "min_amount": "100.01",
+      "max_amount": "10000.00",
+      "fixed_fee": "0.00",
+      "percentage_fee": "0.20",
+      "is_active": true
+    }
+  },
+  {
+    "model": "transactions.tariffrule",
+    "pk": 3,
+    "fields": {
+      "name": "Сценарио 2 (ECOM)",
+      "transaction_type": "ECOM",
+      "min_amount": "0.00",
+      "max_amount": "10000.00",
+      "fixed_fee": "0.15",
+      "percentage_fee": "1.80",
+      "max_fee": "120.00",
+      "discount_for_credit_score_above": 400,
+      "discount_percent": "1.00",
+      "is_active": true
+    }
+  },
+  {
+    "model": "transactions.tariffrule",
+    "pk": 4,
+    "fields": {
+      "name": "Сценарио 3 (Попуст > 400)",
+      "transaction_type": "POS",
+      "min_amount": "0.00",
+      "max_amount": "10000.00",
+      "fixed_fee": "0.00",
+      "percentage_fee": "0.00",
+      "discount_for_credit_score_above": 400,
+      "discount_percent": "1.00",
+      "is_active": false
+    }
+  }
+]
